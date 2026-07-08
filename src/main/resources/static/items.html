@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Stationery Inventory Management</title>
+<style>
+body{font-family:Segoe UI,Tahoma,sans-serif;margin:0;padding:20px;background:#f5f5f5}
+.container{max-width:1200px;margin:auto;background:#fff;padding:30px;border-radius:10px;box-shadow:0 0 20px rgba(0,0,0,.1)}
+h1{text-align:center;border-bottom:3px solid #4CAF50;padding-bottom:10px}
+h2{margin-top:30px}
+input{padding:10px;margin:5px;border:1px solid #ddd;border-radius:5px}
+button{background:#4CAF50;color:#fff;padding:10px 20px;border:none;border-radius:5px;cursor:pointer}
+button:hover{background:#45a049}
+.delete{background:#f44336}
+#itemList{list-style:none;padding:0}
+#itemList li{display:flex;justify-content:space-between;background:#f9f9f9;margin:10px 0;padding:15px;border-left:4px solid #4CAF50}
+.pagination-controls{text-align:center;margin-top:20px}
+.loading{font-style:italic;color:#666}
+.error{color:red}
+</style>
+</head>
+<body>
+
+<div class="container">
+
+<h1>🖊️ Stationery Inventory Management</h1>
+
+<section>
+<h2>Add Stationery Item</h2>
+
+<input id="itemName" placeholder="Item Name">
+<input id="brand" placeholder="Brand">
+<input id="price" type="number" step="0.01" placeholder="Price">
+<input id="quantity" type="number" placeholder="Quantity">
+<input id="categoryId" type="number" placeholder="Category ID">
+
+<br><br>
+
+<button onclick="addItem()">Add Item</button>
+
+</section>
+
+<section>
+<h2>All Stationery Items</h2>
+
+<ul id="itemList"></ul>
+
+<div class="pagination-controls">
+<button onclick="prevPage()">Previous</button>
+<span id="pageInfo"></span>
+<button onclick="nextPage()">Next</button>
+</div>
+
+</section>
+
+<section>
+<h2>Search Item By ID</h2>
+
+<input id="itemIdInput" type="number" placeholder="Item ID">
+<button onclick="getItemById()">Search</button>
+
+<div id="itemDetails"></div>
+
+</section>
+
+<section>
+<h2>Update Item</h2>
+
+<input id="updateId" type="number" placeholder="Item ID">
+<input id="updateItemName" placeholder="Item Name">
+<input id="updateBrand" placeholder="Brand">
+<input id="updatePrice" type="number" step="0.01" placeholder="Price">
+<input id="updateQuantity" type="number" placeholder="Quantity">
+<input id="updateCategoryId" type="number" placeholder="Category ID">
+
+<br><br>
+
+<button onclick="updateItem()">Update Item</button>
+
+</section>
+
+</div>
+
+<script>
+
+const API="http://localhost:8080/api/items";
+let currentPage=0;
+const pageSize=5;
+
+function loadItems(page=0){
+
+fetch(`${API}?page=${page}&size=${pageSize}&sort=id,asc`)
+.then(r=>r.json())
+.then(data=>{
+
+const list=document.getElementById("itemList");
+list.innerHTML="";
+
+if(data.content.length===0){
+list.innerHTML="<li>No items found.</li>";
+return;
+}
+
+data.content.forEach(item=>{
+
+list.innerHTML+=`
+<li>
+<div>
+<b>ID:</b> ${item.id}
+|
+<b>Item:</b> ${item.itemName}
+|
+<b>Brand:</b> ${item.brand}
+|
+<b>Price:</b> ₹${item.price}
+|
+<b>Qty:</b> ${item.quantity}
+</div>
+
+<button class="delete" onclick="deleteItem(${item.id})">Delete</button>
+</li>`;
+
+});
+
+currentPage=data.number;
+
+document.getElementById("pageInfo").innerHTML=
+`Page ${data.number+1} of ${data.totalPages}`;
+
+});
+
+}
+
+function nextPage(){loadItems(currentPage+1);}
+function prevPage(){if(currentPage>0)loadItems(currentPage-1);}
+
+function addItem(){
+
+fetch(API,{
+method:"POST",
+headers:{"Content-Type":"application/json"},
+body:JSON.stringify({
+itemName:itemName.value,
+brand:brand.value,
+price:Number(price.value),
+quantity:Number(quantity.value),
+categoryId:Number(categoryId.value)
+})
+}).then(()=>{clearAdd();loadItems(0);});
+
+}
+
+function getItemById(){
+
+fetch(`${API}/${itemIdInput.value}`)
+.then(r=>r.json())
+.then(i=>{
+itemDetails.innerHTML=
+`<b>${i.itemName}</b><br>
+Brand: ${i.brand}<br>
+Price: ₹${i.price}<br>
+Quantity: ${i.quantity}<br>
+Category ID: ${i.categoryId}`;
+});
+
+}
+
+function updateItem(){
+
+fetch(`${API}/${updateId.value}`,{
+method:"PUT",
+headers:{"Content-Type":"application/json"},
+body:JSON.stringify({
+itemName:updateItemName.value,
+brand:updateBrand.value,
+price:Number(updatePrice.value),
+quantity:Number(updateQuantity.value),
+categoryId:Number(updateCategoryId.value)
+})
+}).then(()=>{clearUpdate();loadItems(currentPage);});
+
+}
+
+function deleteItem(id){
+
+if(!confirm("Delete this item?")) return;
+
+fetch(`${API}/${id}`,{method:"DELETE"})
+.then(()=>loadItems(currentPage));
+
+}
+
+function clearAdd(){
+itemName.value="";
+brand.value="";
+price.value="";
+quantity.value="";
+categoryId.value="";
+}
+
+function clearUpdate(){
+updateId.value="";
+updateItemName.value="";
+updateBrand.value="";
+updatePrice.value="";
+updateQuantity.value="";
+updateCategoryId.value="";
+}
+
+window.onload=()=>loadItems();
+
+</script>
+
+</body>
+</html>

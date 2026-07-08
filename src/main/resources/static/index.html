@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Stationery Management API</title>
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100 text-gray-900">
+
+<header class="bg-green-700 text-white py-16">
+<div class="container mx-auto text-center px-4">
+<h1 class="text-5xl font-bold mb-4">🖊️ Stationery Management API</h1>
+<p class="text-xl mb-6">
+RESTful API built with Java and Spring Boot for managing office stationery inventory.
+</p>
+
+<div class="space-x-4">
+<a href="http://localhost:8080/swagger-ui/index.html"
+class="bg-white text-green-700 px-6 py-3 rounded-lg font-semibold"
+target="_blank">
+Swagger UI
+</a>
+
+<a href="categories.html"
+class="bg-blue-600 px-6 py-3 rounded-lg text-white font-semibold">
+Manage Categories
+</a>
+
+<a href="items.html"
+class="bg-gray-800 px-6 py-3 rounded-lg text-white font-semibold">
+Manage Items
+</a>
+</div>
+
+</div>
+</header>
+
+<section class="container mx-auto px-6 py-16">
+
+<h2 class="text-3xl font-bold mb-8 text-center">
+Features
+</h2>
+
+<div class="grid md:grid-cols-3 gap-6">
+
+<div class="bg-white p-6 rounded shadow">
+<h3 class="text-xl font-bold mb-3">Category Management</h3>
+<p>Create, update, delete and view stationery categories.</p>
+</div>
+
+<div class="bg-white p-6 rounded shadow">
+<h3 class="text-xl font-bold mb-3">Inventory Management</h3>
+<p>Manage stationery items including brand, price, quantity and category.</p>
+</div>
+
+<div class="bg-white p-6 rounded shadow">
+<h3 class="text-xl font-bold mb-3">REST API</h3>
+<p>Supports CRUD operations, pagination, sorting and filtering using Spring Boot.</p>
+</div>
+
+</div>
+
+</section>
+
+<section class="bg-white py-16">
+
+<div class="container mx-auto px-6">
+
+<h2 class="text-3xl font-bold mb-8 text-center">
+Technology Stack
+</h2>
+
+<div class="flex flex-wrap justify-center gap-4">
+
+<span class="bg-gray-200 px-4 py-2 rounded">Java 17</span>
+<span class="bg-gray-200 px-4 py-2 rounded">Spring Boot 3.3.1</span>
+<span class="bg-gray-200 px-4 py-2 rounded">Spring Data JPA</span>
+<span class="bg-gray-200 px-4 py-2 rounded">Hibernate</span>
+<span class="bg-gray-200 px-4 py-2 rounded">H2 Database</span>
+<span class="bg-gray-200 px-4 py-2 rounded">Swagger / OpenAPI</span>
+<span class="bg-gray-200 px-4 py-2 rounded">Maven</span>
+
+</div>
+
+</div>
+
+</section>
+
+<section class="container mx-auto px-6 py-16">
+
+<h2 class="text-3xl font-bold mb-6">
+Available APIs
+</h2>
+
+<div class="bg-gray-900 text-green-400 p-6 rounded font-mono">
+
+GET /api/items<br>
+POST /api/items<br>
+PUT /api/items/{id}<br>
+DELETE /api/items/{id}<br><br>
+
+GET /api/categories<br>
+POST /api/categories<br>
+PUT /api/categories/{id}<br>
+DELETE /api/categories/{id}
+
+</div>
+
+</section>
+
+<footer class="bg-gray-900 text-white text-center py-8">
+
+<h3 class="text-2xl font-bold mb-2">
+Stationery Management API
+</h3>
+
+<p>Developed using Spring Boot, Spring Data JPA and H2 Database.</p>
+
+</footer>
+
+</body>
+</html>
