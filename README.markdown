@@ -41,33 +41,17 @@ sorting, filtering, Swagger documentation, and a simple HTML frontend.
 
 # 📸 Application Screenshots
 
-## 🏠 Home Page
+| Home Page                            |
+| ------------------------------------ |
+| ![](images/home-page.png)            |
 
-![Home Page](images/home-page.png)
+| Category Management             | Stationery Item Management    |
+| ------------------------------- | ----------------------------- |
+| ![](images/categories-page.png) | ![](images/items-page.png)    |
 
----
-
-## 📂 Category Management
-
-![Category Management](images/categories-page.png)
-
----
-
-## 📝 Stationery Item Management
-
-![Stationery Items](images/items-page.png)
-
----
-
-## 📖 Swagger API Documentation
-
-![Swagger UI](images/swagger-ui.png)
-
----
-
-## 🗄️ H2 Database
-
-![H2 Database](images/h2-database.png)
+| Swagger API Documentation       | H2 Database                   |
+| ------------------------------- | ----------------------------- |
+| ![](images/swagger-ui.png)      | ![](images/h2-database.png)   |
 
 ------------------------------------------------------------------------
 
